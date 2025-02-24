@@ -1,0 +1,29 @@
+Table users {
+    id int [pk, increment]
+    name varchar
+    email varchar
+    cohort int
+}
+
+Table userPosts {
+    id int [pk, increment]
+    userId int 
+    PostId int
+}
+
+Table posts {
+    id int [pk, increment]
+    title varchar
+    body varchar
+    UserCreatorId int
+    date date 
+    topicId int
+}
+Table topics {
+    id int [pk, increment]
+    name varchar
+}
+ref:users.id  < userPosts.userId
+ref:posts.id  < userPosts.PostId
+ref:posts.topicId  < topics.id
+ref:users.id  < posts.UserCreatorId
