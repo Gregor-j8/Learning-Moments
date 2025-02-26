@@ -1,4 +1,8 @@
+import "./app.css";
+import { AllPosts } from "./components/AllPosts/AllPosts";
 
 export const App = () => {
-  return <div>Hello World!</div>
+  return <>
+    <AllPosts />
+  </>
 }

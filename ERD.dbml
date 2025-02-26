@@ -9,6 +9,7 @@ Table userPosts {
     id int [pk, increment]
     userId int 
     PostId int
+    Isliked boolean
 }
 
 Table posts {
