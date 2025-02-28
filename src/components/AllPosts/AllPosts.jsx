@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { getAllPosts, getAllTopics } from "../../services/Posts"
 import { Posts } from "../Posts/Posts"
+import "../../app.css"
+import { Link } from "react-router-dom"
 
 
 export const AllPosts = () => {
@@ -21,7 +23,6 @@ export const AllPosts = () => {
 
 
         useEffect(() => {
-
             let filteredResults = allPosts
 
             if (filteredTopics) {
@@ -52,7 +53,7 @@ export const AllPosts = () => {
         <div className="flex flex-wrap w-full justify-center">
             <div className="flex flex-wrap w-3/4 justify-center" >
                 {filteredPosts.map(posts => {
-                    return  <Posts posts={posts} key={posts.id}/>
+                    return <Link to={`/allposts/${posts.id}`} key={posts.id}><Posts posts={posts}/></Link>
                 })}
             </div>
         </div>
