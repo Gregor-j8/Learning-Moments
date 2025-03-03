@@ -52,7 +52,7 @@ export const AllPosts = () => {
             </div>
         </div>
         <div className="flex flex-wrap w-full justify-center">
-            <div className="flex flex-wrap w-3/4 justify-center" >
+            <div className="flex flex-wrap w-3/4 h-30 justify-center" >
                 {filteredPosts.map(posts => {
                     return <Link to={`/allposts/${posts.id}`} key={posts.id}><Posts posts={posts}/></Link>
                 })}

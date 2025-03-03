@@ -15,10 +15,12 @@ export const MyPosts = ({ currentUser }) => {
     console.log(userposts);
 
     return (
-        <div>
+    <div className="flex w-full justify-center">
+        <div className="flex flex-row w-9/12 flex-wrap">
             {userposts.map((post, index) => (
                 <Posts key={index} posts={post} />
             ))}
         </div>
+    </div>
     );
 };

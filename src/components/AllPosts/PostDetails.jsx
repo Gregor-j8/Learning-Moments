@@ -6,14 +6,12 @@ import { useParams } from "react-router-dom"
 export const PostDetails = () => {
     const { postDetailsId } = useParams()
     const [PostDetail, setPostDetail] = useState({})
-
     useEffect(() => {
         getAllPostDetails(postDetailsId).then(posts => {
             const customerObj = posts[0]
             setPostDetail(customerObj)
         })
     }, [postDetailsId])
-
     return (
         <div className="flex w-full justify-center text-white bg-gray-300 min-h-screen px-0 py-35">
             <section className="w-3/4 h-full flex flex-col rounded-lg bg-gray-900 p-10">
