@@ -1,3 +1,4 @@
+import React from "react"
 import { useEffect, useState } from "react"
 import { getAllPostDetails } from "../../services/Posts"
 import { useParams } from "react-router-dom"
