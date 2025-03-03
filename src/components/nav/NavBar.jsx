@@ -7,8 +7,9 @@ export const NavBar = () => {
 
     return (
         <ul className="flex justify-around p-4 bg-gray-900 text-gray-200">
-            <Link to="/allposts"><li>AllPosts</li></Link>
-            <Link to="/newposts"><li>NewPosts</li></Link>
+            <Link to="/allposts"><li>All Posts</li></Link>
+            <Link to="/newposts"><li>New Posts</li></Link>
+            <Link to="/myposts"><li>My Posts</li></Link>
             {localStorage.getItem("learning_user") ? (
   <li>
     <Link

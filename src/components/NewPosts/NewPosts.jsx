@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { getAllTopics, updatePosts } from "../../services/Posts"
 import { useNavigate } from "react-router-dom"
 
-export const NewPosts = (currentUser) => {
+export const NewPosts = ({currentUser}) => {
     const [topics, setTopics] = useState([])
     const [newPost, setNewPost] = useState({})
     const navigate = useNavigate()
@@ -16,22 +16,26 @@ export const NewPosts = (currentUser) => {
         const addingNewPost = (event) => {
         event.preventDefault()
         const currentDate = new Date().toLocaleDateString()
-        const userId = currentUser.currentUser.id
+        const userId = currentUser.id
 
         const AddPost = {
             title: newPost.title,
             body: newPost.body,
-            currentUser: userId,
+            userId: userId,
             topicId: newPost.topic, 
-            date: currentDate
+            date: currentDate,
+            likes: 0
         }
-        console.log(AddPost)
+
+        if (!AddPost.topicId) {
+            return 
+        } else {
             updatePosts(AddPost).then(() => {
-                navigate(`/allposts`)
+                navigate(`/allposts`)   
 })}
-        
+}
     return (
-        <div className="flex  flex-col w-full items-center text-white bg-gray-300 min-h-screen px-0 py-30">
+        <div className="flex flex-col w-full items-center text-white bg-gray-300 min-h-screen px-0 py-30">
             <h1 className="text-4xl text-gray-900 p-9">New Post</h1>
             <form className="w-3/4 h-full flex  rounded-lg bg-gray-900 p-10">
                 <fieldset className="flex flex-col w-full items-center p-2 text-l">
@@ -49,20 +53,20 @@ export const NewPosts = (currentUser) => {
                             const copy = {...newPost}
                             copy.body = events.target.value
                             setNewPost(copy)
-                        }} required/>
+                        }} required />
                     </div> 
                 </fieldset>
 
                 <fieldset className="flex flex-col w-full items-center p-2 text-l">
                     <select className="text-white" id="myTopics" onChange={(events) => {
                             const copy = {...newPost}
-                            copy.topic = events.target.value
+                            copy.topic = parseInt(events.target.value)
                             setNewPost(copy)
                         }} required><option className="text-black" value={0}>Choose A Topic</option>{topics.map(topic => {
                         return <option className="text-black" value={topic.id} key={topic.id}>{topic.name}</option>
                     })}
                     </select> 
-                    <button className="w-35 mt-22 rounded-lg h-8 bg-gray-400" onClick={addingNewPost}>Save </button>
+                    <button className="w-35 mt-22 rounded-lg h-8 bg-gray-400 cursor-pointer" onClick={addingNewPost}>Save </button>
                     <div className="p-20"></div>
                 </fieldset>
             </form>
