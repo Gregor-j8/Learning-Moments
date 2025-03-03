@@ -44,7 +44,7 @@ export const AllPosts = () => {
         <div className="flex w-full justify-center">
             <div className="flex w-50">
                 <select onChange={(event) => setFilteredTopics(event.target.value)}>
-                    <option value="">Find Topics</option>{allTopics.map(topic => (
+                    <option >Find Topics</option>{allTopics.map(topic => (
                     <option key={topic.id} value={topic.id}>{topic.name}</option>))}
                 </select>
                 <input className="w-50 h-8 lg:bg-gray-200" type="text" placeholder="Search" onChange={(event) => {setSearchTerm(event.target.value)}}/>

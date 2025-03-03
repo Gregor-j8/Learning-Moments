@@ -14,22 +14,22 @@ export const PostDetails = () => {
     }, [postDetailsId])
 
     return (
-        <div>
-            <section>
-                <header>
+        <div className="flex w-full justify-center text-white bg-gray-300 min-h-screen px-0 py-35">
+            <section className="w-3/4 h-full flex flex-col rounded-lg bg-gray-900 p-10">
+                <header className=" flex w-full justify-center p-3 text-3xl">
                     <h1>{PostDetail.user?.fullName}</h1>
-                    </header>
-                    <div>
-                        <span>
+                </header>
+                    <div className="flex flex-row w-full items-center p-2 text-l">
+                        <span className="flex w-6/12 p-1 justify-center">
                             {PostDetail.title}
                         </span>
-                        <span>
+                        <span className="flex p-2 w-6/12 justify-center text-l">
                             {PostDetail.topic?.name}
                         </span>
                     </div>
                 <div>
-                    <div>{PostDetail.body}</div>
-                    <footer>{PostDetail.likes}{PostDetail.date}</footer>
+                    <div className="w-full min-h-full text-l px-20 py-5">{PostDetail.body}</div>
+                    <footer className="flex justify-around text-l p-2"><span>likes {PostDetail.likes}</span><span>{PostDetail.date}</span></footer>
                 </div>
             </section>
         </div>

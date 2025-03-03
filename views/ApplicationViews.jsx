@@ -3,6 +3,7 @@ import { AllPosts } from "../src/components/AllPosts/AllPosts"
 import { NavBar } from "../src/components/nav/NavBar"
 import { useState, useEffect } from "react"
 import { PostDetails } from "../src/components/AllPosts/PostDetails"
+import { NewPosts } from "../src/components/NewPosts/NewPosts"
 
 
 export const ApplicationViews = () => {
@@ -27,6 +28,7 @@ export const ApplicationViews = () => {
                     <Route index element={<AllPosts />} />
                     <Route path=":postDetailsId" element={<PostDetails />} />
                 </Route>
+                <Route path="newposts" element={<NewPosts />}/>
             </Route>
         </Routes>
     </>
