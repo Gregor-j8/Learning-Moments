@@ -10,15 +10,13 @@ export const MyPosts = ({ currentUser }) => {
         getAllPostDetails(currentUser.id).then(data => {
             setUserPosts(data);
         });
-    }, [currentUser.id]);
-
-    console.log(userposts);
-
+    }, [currentUser, ]);
+    
     return (
     <div className="flex w-full justify-center">
         <div className="flex flex-row w-9/12 flex-wrap">
             {userposts.map((post, index) => (
-                <Posts key={index} posts={post} />
+                <Posts key={index} posts={post} currentUser={currentUser} />
             ))}
         </div>
     </div>

@@ -1,9 +1,10 @@
 import React from "react"
 import { useEffect, useState } from "react"
 import { getAllPostDetails } from "../../services/Posts"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
-export const PostDetails = () => {
+export const PostDetails = ({currentUser}) => {
+    const navigate = useNavigate()
     const { postDetailsId } = useParams()
     const [PostDetail, setPostDetail] = useState({})
     useEffect(() => {
@@ -28,7 +29,16 @@ export const PostDetails = () => {
                     </div>
                 <div>
                     <div className="w-full min-h-full text-l px-20 py-5">{PostDetail.body}</div>
-                    <footer className="flex justify-around text-l p-2"><span>likes {PostDetail.likes}</span><span>{PostDetail.date}</span></footer>
+                    {currentUser.id !== PostDetail.user?.id
+                        ? <footer className="flex justify-around text-l p-2">
+                            <span>likes {PostDetail.likes}</span>
+                            <span>{PostDetail.date}</span>
+                        </footer>
+                        : <footer className="flex justify-around text-l p-2">
+                            <span>likes {PostDetail.likes}</span>
+                            <span>{PostDetail.date}</span>
+                            <button className="cursor-pointer" onClick={() => {navigate("edit")}}>Edit</button>
+                        </footer>}
                 </div>
             </section>
         </div>
