@@ -10,6 +10,7 @@ export const NavBar = () => {
             <Link to="/allposts"><li>All Posts</li></Link>
             <Link to="/newposts"><li>New Posts</li></Link>
             <Link to="/myposts"><li>My Posts</li></Link>
+            <Link to="/favorites"><li>Favorites</li></Link>
             {localStorage.getItem("learning_user") ? (
   <li>
     <Link

@@ -1,17 +1,17 @@
 import React from "react"
 import { useEffect, useState } from "react"
-import { getAllPosts, getAllTopics } from "../../services/Posts"
+import { getAllPosts, getAllTopics,  } from "../../services/Posts"
 import { Posts } from "../Posts/Posts"
 import "../../app.css"
-import { Link } from "react-router-dom"
 
 
-export const AllPosts = () => {
+export const AllPosts = ({currentUser}) => {
     const [allPosts, setAllPosts] = useState([])
     const [allTopics, setAllTopics] = useState([])
     const [filteredPosts, setFilteredPosts] = useState([])
     const [filteredTopics, setFilteredTopics] = useState(0)
     const [SearchTerm, setSearchTerm] = useState('')
+
 
     useEffect(() => {
         getAllPosts().then(postsArray => {
@@ -54,7 +54,7 @@ export const AllPosts = () => {
         <div className="flex flex-wrap w-full justify-center">
             <div className="flex flex-wrap w-3/4 h-30 justify-center" >
                 {filteredPosts.map(posts => {
-                    return <Link to={`/allposts/${posts.id}`} key={posts.id}><Posts posts={posts}/></Link>
+                    return <Posts posts={posts} key={posts.id} currentUser={currentUser} />
                 })}
             </div>
         </div>

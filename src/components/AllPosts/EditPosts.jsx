@@ -35,7 +35,7 @@ export const EditPosts = ({currentUser}) => {
             return 
         } else {
             updatePosts(AddPost).then(() => {
-                navigate(`/allposts`)   
+                navigate(`/myposts`)   
 })}
 }
     return (
