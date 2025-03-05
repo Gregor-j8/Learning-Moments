@@ -4,6 +4,9 @@ export const getAllPosts = async() => {
 export const getUserPosts = async(userId) => {
     return fetch(`http://localhost:8088/userPosts?userId=${userId}`).then(res => res.json())
 }
+export const getUserPostsFavorites = async(userId) => {
+    return fetch(`http://localhost:8088/userPosts?userId=${userId}&_expand=post&_expand=user`).then(res => res.json())
+}
 export const getAllPostDetails = async(postDetailsId) => {
     return fetch(`http://localhost:8088/posts?id=${postDetailsId}&_expand=user&_embed=userPosts&_expand=topic`).then(res => res.json())
 }

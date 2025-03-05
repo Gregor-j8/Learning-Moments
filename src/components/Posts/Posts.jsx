@@ -52,8 +52,6 @@ export const Posts = ({ posts, currentUser }) => {
     }
     return(
         <>
-        {/* {console.log(user)}
-        {currentUser?.id === posts.userId && user.postId === posts.id && toggleLike()} */}
         {currentUser?.id === posts.userId ? 
         <>
         <section className="flex w-86 m-8 lg:bg-gray-900 rounded-lg justify-center">
@@ -66,7 +64,6 @@ export const Posts = ({ posts, currentUser }) => {
                         copy.userId = currentUser.id
                         copy.postId = posts?.id
                         !copy.userId || !copy.postId ? '' :
-                        console.log("after", copy)
                         SetLikedByUser(copy) 
                         likedPosts()
                         toggleLike()}}>
