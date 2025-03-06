@@ -12,15 +12,19 @@ export const Favorites = ({currentUser}) => {
     return ( 
         <>
             {favoritePosts.map(posts => {
+                
                return ( 
-                <div className=" ">
-                    <div className="">
-                        <section className="  ">
-                            <header className="">{posts?.user?.fullName}</header>
-                            <main>
-                                <p className="">{posts?.post.body}</p>
-                                <p className="">{posts?.post.likes}</p>
-                                <p className="">{posts?.post.topics}</p>
+                <div className="flex flex-wrap w-full justify-center mt-15 mb-8">
+                    <div className="flex flex-col flex-wrap w-2/4 h-30 px-10 justify-center">
+                        <section className="flex flex-col items-center lg:bg-gray-900 py-5 rounded-lg">
+                            <header className="flex text-gray-200 p-2">{posts?.user?.fullName}</header>
+                            <main >
+                                <p className=" flex text-gray-200 p-1">{posts?.post.body}</p>
+                                <section className="flex flex-row justify-around p-1">
+                                    <p className="text-gray-200 p-1">{posts?.post.likes}</p>
+                                    <p className=" text-gray-200 items-right p-1">{posts?.post.title}</p>
+                                </section>
+
                             </main>
                         </section>
                     </div>

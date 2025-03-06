@@ -21,8 +21,6 @@ export const Posts = ({ posts, currentUser }) => {
         setHeart(true);
     };
 
-    const toggleLike = () => setHeart(prevHeart => !prevHeart);
-
     const IsLiked = () => heart ? <FilledHeartIcon /> : <UnFilledHeartIcon />;
 
     useEffect(() => {
@@ -48,6 +46,7 @@ export const Posts = ({ posts, currentUser }) => {
         } else if (heart && (currentUser.id || posts?.id)) {
             setHeart(false);
             DeleteLikes(currentUser.id, posts.id);
+            navigate("/allposts")
         } else {
             HandleLike();
         }
