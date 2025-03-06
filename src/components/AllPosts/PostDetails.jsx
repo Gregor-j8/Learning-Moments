@@ -1,7 +1,7 @@
 import React from "react"
 import { useEffect, useState } from "react"
 import { getAllPostDetails } from "../../services/postDetail"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams, Link } from "react-router-dom"
 
 export const PostDetails = ({currentUser}) => {
     const navigate = useNavigate()
@@ -17,7 +17,9 @@ export const PostDetails = ({currentUser}) => {
         <div className="flex w-full justify-center text-white bg-gray-300 min-h-screen px-0 py-35">
             <section className="w-3/4 h-full flex flex-col rounded-lg bg-gray-900 p-10">
                 <header className=" flex w-full justify-center p-3 text-3xl">
-                    <h1>{PostDetail.user?.fullName}</h1>
+                        <Link to={`/profile/${PostDetail?.userId}` }>
+                            <h1 className="flex w-77 justify-center p-2 text-gray-200">{PostDetail.user?.fullName}</h1>
+                        </Link>
                 </header>
                     <div className="flex flex-row w-full items-center p-2 text-l">
                         <span className="flex w-6/12 p-1 justify-center">

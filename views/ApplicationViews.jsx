@@ -8,6 +8,8 @@ import { NewPosts } from "../src/components/NewPosts/NewPosts"
 import { MyPosts } from "../src/components/MyPosts/MyPosts"
 import { EditPosts } from "../src/components/AllPosts/EditPosts"
 import { Favorites } from "../src/components/Favorites/Favorites"
+import { Profile } from "../src/components/Profile/Profile"
+import { EditProfile } from "../src/components/Profile/editProfile"
 
 
 export const ApplicationViews = () => {
@@ -23,7 +25,7 @@ export const ApplicationViews = () => {
         <Routes>
         <Route path="/" element={
                 <>
-                    <NavBar />
+                    <NavBar currentUser={currentUser}/>
                     <Outlet />
                 </>
                     }
@@ -36,6 +38,10 @@ export const ApplicationViews = () => {
                 <Route path="newposts" element={<NewPosts currentUser={currentUser}/>}/>
                     <Route path="myposts" element={<MyPosts currentUser={currentUser}/>}/>
                     <Route path="favorites" element={<Favorites currentUser={currentUser}/>}/>
+                    <Route path="profile">
+                    <Route path="/profile/:userId" element={<Profile currentUser={currentUser}/>}/>
+                    <Route path="/profile/edit" element={<EditProfile currentUser={currentUser}/>}/>
+                    </Route>
             </Route>
         </Routes>
     </>

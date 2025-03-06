@@ -25,7 +25,7 @@ export const Posts = ({ posts, currentUser }) => {
 
     useEffect(() => {
         getUserPosts(currentUser.id).then(setUser);
-    }, [currentUser]);
+    }, [currentUser, ]);
 
     const isPostLiked = user.some(users => 
         users.userId === currentUser?.id && users.postId === posts.id && users.isLiked === true
@@ -37,7 +37,7 @@ export const Posts = ({ posts, currentUser }) => {
 
     const DeleteData = () => {
         DeletePost(posts.id);
-        navigate("/allposts");
+        navigate("/myposts");
     };
 
     const HandleDeleteCheck = () => {

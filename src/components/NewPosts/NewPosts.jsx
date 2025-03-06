@@ -11,7 +11,7 @@ export const NewPosts = ({currentUser}) => {
     useEffect(() => {
         getAllTopics().then(allTopics => {
         setTopics(allTopics)
-    })}, [topics])
+    })}, [])
 
         const addingNewPost = (event) => {
         event.preventDefault()

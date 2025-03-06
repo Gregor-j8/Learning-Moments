@@ -29,7 +29,7 @@ export const Profile = ({currentUser}) => {
     }, [user])
 
     const editProfile = () => {
-        navigate("/profile/userId/edit")
+        navigate("/profile/edit")
     }
 
     return (
