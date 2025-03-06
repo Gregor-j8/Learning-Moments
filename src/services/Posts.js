@@ -7,12 +7,6 @@ export const getUserPosts = async(userId) => {
 export const getUserPostsFavorites = async(userId) => {
     return fetch(`http://localhost:8088/userPosts?userId=${userId}&_expand=post&_expand=user`).then(res => res.json())
 }
-export const getAllPostDetails = async(postDetailsId) => {
-    return fetch(`http://localhost:8088/posts?id=${postDetailsId}&_expand=user&_embed=userPosts&_expand=topic`).then(res => res.json())
-}
-export const getAllMyPostDetails = async(postDetailsId) => {
-    return fetch(`http://localhost:8088/posts?userId=${postDetailsId}&_expand=user&_embed=userPosts&_expand=topic`).then(res => res.json())
-}
 export const getAllPostUsers = async(postDetailsId) => {
     return fetch(`http://localhost:8088/posts?userId=${postDetailsId}&_expand=user`).then(res => res.json())
 }
@@ -56,3 +50,17 @@ export const DeletePost = async(postId) => {
     return fetch(`http://localhost:8088/posts/${postId}`, {
         method: "DELETE", })
       }
+
+      export const DeleteLikes = async (userId, postId) => {
+        fetch(`http://localhost:8088/userPosts?userId=${userId}&postId=${postId}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.length > 0) {
+              const itemId = data[0].id; 
+              return fetch(`http://localhost:8088/userPosts/${itemId}`, {
+                method: "DELETE"
+              });
+            }
+          })
+    }
+          

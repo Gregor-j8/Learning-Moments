@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllMyPostDetails } from "../../services/Posts";
+import { getAllMyPostDetails } from "../../services/postDetail";
 import { Posts } from "../Posts/Posts";
 
 export const MyPosts = ({ currentUser }) => {

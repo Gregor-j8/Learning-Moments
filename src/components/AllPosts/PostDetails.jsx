@@ -1,6 +1,6 @@
 import React from "react"
 import { useEffect, useState } from "react"
-import { getAllPostDetails } from "../../services/Posts"
+import { getAllPostDetails } from "../../services/postDetail"
 import { useNavigate, useParams } from "react-router-dom"
 
 export const PostDetails = ({currentUser}) => {

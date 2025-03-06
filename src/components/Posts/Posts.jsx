@@ -1,99 +1,112 @@
 import React, { useEffect, useState } from "react"
-import { getAllPostUsers, DeletePost, NewLikedPost, getUserPosts } from "../../services/Posts"
+import { NewLikedPost, DeletePost, getUserPosts, DeleteLikes } from "../../services/Posts"
 import { Link, useNavigate } from "react-router-dom"
 
 export const Posts = ({ posts, currentUser }) => {
-    const navigate = useNavigate()
-    const [user, setUser] = useState([])
-    const [heart, setHeart] = useState(false)
-    const [likedByUser, SetLikedByUser] = useState({})
+    const navigate = useNavigate();
+    const [user, setUser] = useState([]);
+    const [heart, setHeart] = useState(false);
+    const [likedByUser, SetLikedByUser] = useState({});
 
-    const toggleLike = () => {
-         return setHeart(prevHeart => !prevHeart);
+    const HandleLike = () => {
+        const copy = { ...likedByUser };
+        copy.userId = currentUser.id;
+        copy.postId = posts?.id;
+        copy.isLiked = true; 
+
+        if (!copy.userId || !copy.postId) return;
+
+        SetLikedByUser(copy);
+        likedPosts();
+        setHeart(true);
     };
 
-    const IsLiked = () => {
-        return heart ? <FilledHeartIcon /> : <UnFilledHeartIcon />;
-    };
+    const toggleLike = () => setHeart(prevHeart => !prevHeart);
+
+    const IsLiked = () => heart ? <FilledHeartIcon /> : <UnFilledHeartIcon />;
 
     useEffect(() => {
-        getUserPosts(currentUser.id).then(data => {
-            setUser(data)
-        })
-    }, [])
+        getUserPosts(currentUser.id).then(setUser);
+    }, [currentUser]);
 
-    const isPostLiked = user.some(users => users.userId === currentUser?.id && users.postId === posts.id);
+    const isPostLiked = user.some(users => 
+        users.userId === currentUser?.id && users.postId === posts.id && users.isLiked === true
+    );
 
     useEffect(() => {
-        if (isPostLiked) {
-            toggleLike();
-        }
+        setHeart(isPostLiked);
     }, [isPostLiked]);
-    
 
     const DeleteData = () => {
-        DeletePost(posts.id)
-        navigate("/allposts")
-    }
+        DeletePost(posts.id);
+        navigate("/allposts");
+    };
+
+    const HandleDeleteCheck = () => {
+        if (heart && (!currentUser.id || !posts?.id)) {
+            setHeart(false);
+        } else if (heart && (currentUser.id || posts?.id)) {
+            setHeart(false);
+            DeleteLikes(currentUser.id, posts.id);
+        } else {
+            HandleLike();
+        }
+    };
 
     const likedPosts = () => {
-         const likedUserPost = {
-            userId: likedByUser.userId,
-            postId: likedByUser.postId
-         }
-         if (!likedByUser.userId || !likedByUser.postId) {
-            toggleLike()
-            return ''
-         }else{
-            NewLikedPost(likedUserPost)
-         }
+        if (!likedByUser.userId || !likedByUser.postId) return;
 
-        
-    }
-    return(
+        let likedUserPost = {
+            userId: likedByUser.userId,
+            postId: likedByUser.postId,
+            isLiked: true 
+        };
+        NewLikedPost(likedUserPost);
+        setHeart(true);
+    };
+
+    return (
         <>
-        {currentUser?.id === posts.userId ? 
-        <>
-        <section className="flex w-86 m-8 lg:bg-gray-900 rounded-lg justify-center">
-            <div>
-                <Link to={`../allposts/${posts.id}`} key={posts.id}><h2  className="flex w-77 justify-center p-2 text-gray-200">{posts.title}</h2></Link>
-                <p className="flex w-77 justify-center p-2 text-gray-200">{posts.topic?.name}</p> 
-                <p className="flex w-77 items-center p-3 text-gray-200">{posts.body}</p>  
-                <section className="flex w-77 p-2 text-gray-200"> <button className="flex w-30" onClick={() => {
-                        const copy = {...likedByUser}
-                        copy.userId = currentUser.id
-                        copy.postId = posts?.id
-                        !copy.userId || !copy.postId ? '' :
-                        SetLikedByUser(copy) 
-                        likedPosts()
-                        toggleLike()}}>
-                        <IsLiked /></button>
-                <p className="flex w-77 p-2 text-gray-200">Liked by: {posts.likes} users</p> 
-                <button className="cursor-pointer hover:bg-gray-400" onClick={DeleteData}><TrashCan /></button>
-                </section>  
-            </div>
-        </section>
-    </> : <section className="flex w-86 m-8 lg:bg-gray-900 rounded-lg justify-center">
-        <div>
-                <Link to={`../allposts/${posts.id}`} key={posts.id}><h2  className="flex w-77 justify-center p-2 text-gray-200">{posts.title}</h2></Link>
-               <p className="flex w-77 justify-center p-2 text-gray-200">{posts.topic?.name}</p> 
-              <p className="flex w-77 items-center p-3 text-gray-200">{posts.body}</p>  
-              <section className="flex w-77 p-2 text-gray-200"><button className="flex w-30" onClick={() => {
-                    const copy = {...likedByUser}
-                    copy.userId = currentUser.id
-                    copy.postId = posts?.id
-                    !copy.userId || !copy.postId ? '' :
-                    SetLikedByUser(copy) 
-                    likedPosts()
-                    toggleLike()}}>
-                    <IsLiked /></button>
-              <p className="flex w-77 p-2 text-gray-200">Liked by: {posts.likes} users</p> 
-              </section>  
-        </div>
-    </section>}
+            {currentUser?.id === posts.userId ? (
+                <section className="flex w-86 m-8 lg:bg-gray-900 rounded-lg justify-center">
+                    <div>
+                        <Link to={`../allposts/${posts.id}`} key={posts.id}>
+                            <h2 className="flex w-77 justify-center p-2 text-gray-200">{posts.title}</h2>
+                        </Link>
+                        <p className="flex w-77 justify-center p-2 text-gray-200">{posts.topic?.name}</p>
+                        <p className="flex w-77 items-center p-3 text-gray-200">{posts.body}</p>
+                        <section className="flex w-77 p-2 text-gray-200">
+                            <button className="flex w-30" onClick={() => HandleDeleteCheck()}>
+                                <IsLiked />
+                            </button>
+                            <p className="flex w-77 p-2 text-gray-200">Liked by: {posts.likes} users</p>
+                            <button className="cursor-pointer hover:bg-gray-400" onClick={DeleteData}>
+                                <TrashCan />
+                            </button>
+                        </section>
+                    </div>
+                </section>
+            ) : (
+                <section className="flex w-86 m-8 lg:bg-gray-900 rounded-lg justify-center">
+                    <div>
+                        <Link to={`../allposts/${posts.id}`} key={posts.id}>
+                            <h2 className="flex w-77 justify-center p-2 text-gray-200">{posts.title}</h2>
+                        </Link>
+                        <p className="flex w-77 justify-center p-2 text-gray-200">{posts.topic?.name}</p>
+                        <p className="flex w-77 items-center p-3 text-gray-200">{posts.body}</p>
+                        <section className="flex w-77 p-2 text-gray-200">
+                            <button className="flex w-30" onClick={() => HandleDeleteCheck()}>
+                                <IsLiked />
+                            </button>
+                            <p className="flex w-77 p-2 text-gray-200">Liked by: {posts.likes} users</p>
+                        </section>
+                    </div>
+                </section>
+            )}
         </>
-    )
-}
+    );
+};
+
     
 
 

@@ -1,7 +1,8 @@
 import React from "react"
 import { useEffect, useState } from "react"
-import { getAllPostDetails, getAllTopics, updatePosts } from "../../services/Posts"
+import { getAllTopics, updatePosts } from "../../services/Posts"
 import { useNavigate } from "react-router-dom"
+import { getAllMyPostDetails } from "../../services/postDetail"
 
 export const EditPosts = ({currentUser}) => {
     const [topics, setTopics] = useState([])
@@ -14,7 +15,7 @@ export const EditPosts = ({currentUser}) => {
     })}, [])
 
     useEffect(() => {
-        getAllPostDetails(currentUser.id).then(user => {
+        getAllMyPostDetails(currentUser.id).then(user => {
             const userdata = user[0]
         setNewPost(userdata)
     })}, [currentUser])

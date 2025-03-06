@@ -30,3 +30,4 @@ export const Favorites = ({currentUser}) => {
         </>
     )
 }
+// flex w-77 items-center p-3 text-gray-200 lg:bg-gray-900 rounded-lg
